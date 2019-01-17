@@ -51,7 +51,7 @@ void pop_back(Vector * vector){
 }
 
 void erase(Vector * vector, int position){
-    if(vector->size > 0){
+    if(position < vector->size){
         for(int i = position; i < vector->size; i++){
             vector->people[i] = vector->people[i + 1];
         }
