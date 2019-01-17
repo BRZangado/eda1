@@ -95,10 +95,31 @@ unsigned int capacity(Vector * vector){
 }
 
 void print(Vector * vector){
-    for(int i = 0; i<size(vector); i++){
-        Person p = at(vector, i);
-        printf("Nome: %s \n Idade: %d \n", p.nome, p.idade);
+    if(vector->size > 0){
+        for(int i = 0; i<size(vector); i++){
+            Person p = at(vector, i);
+            printf("Nome: %s \n Idade: %d \n", p.nome, p.idade);
+        }
     }
+    else{
+        printf("Nenhuma pessoa cadastrada no momento\n\n");
+    }
+}
+
+void register_person(Vector * vector){
+
+    Person p;
+    char nome[100];
+    int idade;
+
+    printf("Digite o nome \n");
+    scanf("%s", nome);
+    printf("Digite a idade \n");
+    scanf("%d", &idade);
+
+    strcpy(p.nome, nome);
+    p.idade = idade;
+    push_back(vector, p);
 }
 
 int main() {
@@ -108,18 +129,36 @@ int main() {
     scanf("%d", &n_pessoas);
     Vector v1 = create(n_pessoas);
 
-    for(int i = 0; i < capacity(&v1); i++){
-        char nome[100];
-        int idade;
-        scanf("%s", nome);
-        scanf("%d", &idade);
-        Person p;
-        strcpy(p.nome, nome);
-        p.idade = idade;
-        push_back(&v1, p);
+    int opt;
+
+    while(1){
+
+        printf("Escolha uma das opções: \n\n");
+        printf("1 - Inserir pessoa\n");
+        printf("2 - Excluir última pessoa\n");
+        printf("3 - Excluir pessoa na posicao x\n");
+        printf("4 - Ver primeira pessoa do vector\n");
+        printf("5 - Ver última pessoa do vector\n");
+        printf("6 - Ver todas as pessoas cadastradas\n");
+        printf("7 - Excluir todos os registros\n");
+        printf("0 - Sair\n\n");
+
+        scanf("%d", &opt);
+
+        if(opt == 0){
+            break;
+        }
+        else if( opt == 1 ){
+            register_person(&v1);
+        }
+        else if( opt == 6 ){
+            print(&v1);
+        }
+        
+
     }
 
-    print(&v1);
+    printf("Encerrando programa e restituindo memoria\n");
     destroy(&v1);
 
     return 0;
