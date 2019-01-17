@@ -98,7 +98,8 @@ void print(Vector * vector){
     if(vector->size > 0){
         for(int i = 0; i<size(vector); i++){
             Person p = at(vector, i);
-            printf("Nome: %s \n Idade: %d \n", p.nome, p.idade);
+            printf("Nome: %s \nIdade: %d \n\n", p.nome, p.idade);
+            printf("-------------------------------------")
         }
     }
     else{
