@@ -4,6 +4,30 @@
 
 using namespace std;
 
+int bsort(vector<int> vector){
+  int N = vector.size();
+  int i, posicoes_originais[N];
+  bool updated;
+  int contagem = 0;
+  do{
+    updated = false;
+    for(i = 0; i<N;i++){
+      posicoes_originais[i]=vector[i];
+      if(vector[i-1] > vector[i]){
+        swap(vector[i-1],vector[i]);
+        updated = true;
+      }
+    }
+  }while(updated);
+
+  for(i=0;i<N;i++){
+    if(vector[i] == posicoes_originais[i]){
+      contagem++;
+    }
+  }
+  return contagem;
+}
+
 int main(){
 
   int N, i, conta = 0;
@@ -12,26 +36,17 @@ int main(){
   for(i=0; i<N;i++){
 
     int M, j;
-    vector<int> vector, vector2;
+    vector<int> vector;
     cin >> M;
 
     for(j = 0; j < M; j++){
       int input;
       cin >> input;
       vector.push_back(input);
-      vector2.push_back(input);
     }
 
-    stable_sort(vector.begin(), vector.end(), greater<int>());
-
-    for(int j = 0; j<vector.size(); j++){
-      if(vector[j] == vector2[j]){
-        conta++;
-      }
-      cout << vector[j] << " " << vector2[j] << endl;
-    }
-
-    cout << conta << endl;
+    int contagem = bsort(vector);
+    cout << contagem << endl;
 
   }
 
