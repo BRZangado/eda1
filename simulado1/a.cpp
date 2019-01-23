@@ -16,12 +16,22 @@ int main(){
       break;
     }
     else{
-      intervalo1.push_back(A);
-      intervalo1.push_back(B);
-      intervalo2.push_back(C);
-      intervalo2.push_back(D);
-      stable_sort(intervalo1.begin(), intervalo1.end());
-      stable_sort(intervalo2.begin(), intervalo2.end());
+      if(A > B){
+        intervalo1.push_back(B);
+        intervalo1.push_back(A);
+      }
+      else{
+        intervalo1.push_back(A);
+        intervalo1.push_back(B);
+      }
+      if(C > D){
+        intervalo2.push_back(D);
+        intervalo2.push_back(C);
+      }
+      else{
+        intervalo2.push_back(C);
+        intervalo2.push_back(D);
+      }
       for(int i = intervalo1.front(); i <= intervalo1.back(); i++){
         for(int j = intervalo2.front(); j <= intervalo2.back(); j++ ){
           if(i == j){

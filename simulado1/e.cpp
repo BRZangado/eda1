@@ -7,7 +7,6 @@ using namespace std;
 void order(vector<string> & nomes, vector<int> & idades){
   bool updated;
   do{
-
     updated = false;
     for(int i = 0; i < nomes.size(); i++){
       if(idades[i-1] > idades[i]){
@@ -16,7 +15,6 @@ void order(vector<string> & nomes, vector<int> & idades){
         swap(nomes[i-1], nomes[i]);
       }
     }
-
   }while(updated);
 }
 
@@ -42,6 +40,7 @@ int main(){
     for(int i = 0; i<nomes.size(); i++){
       cout << nomes[i] << endl;
     }
+    cout << endl;
   }
 
   return 0;
