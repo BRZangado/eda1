@@ -55,6 +55,12 @@ void erase(Vector * vector, int i){
     }
 }
 
+int find(Vector * vector, int position){
+    if(position < vector->size){
+        return vector->elements[position];
+    }
+}
+
 void clear(Vector * vector){
     free(vector->elements);
     vector->size = 0;
