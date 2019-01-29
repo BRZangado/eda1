@@ -1,6 +1,9 @@
 #ifndef LIST_H
 #define LIST_H
 
+#include <iostream>
+using namespace std;
+
 template<typename T>
 class LinkedList{
   private:
@@ -12,7 +15,6 @@ class LinkedList{
         next = n;
       };
     };
-
     Node * tail;
     Node * head;
     unsigned int _size;
@@ -66,6 +68,37 @@ class LinkedList{
       }
       _size--;
     }
+    void insert(T info, int position){
+      if(position == 0){
+        push_front(info);
+      }
+      else if(position == _size-1){
+        push_back(info);
+      }
+      else if(position >= _size){
+        cout << "posicao nao existente" << endl;
+      } else {
+        int i = 0;
+        auto p = head;
+        while(p){
+          if(i == position){
+            auto node = new Node(info, p);
+            auto prev = head;
+            while(prev->next != p){
+              prev = prev->next;
+            }
+            prev->next = node;
+            break;
+          }
+          else{
+            p = p->next;
+            i++;
+            continue;
+          }
+        }
+        _size++;
+      }
+    }
     
     void pop_front(){
       auto p = head;
@@ -103,6 +136,15 @@ class LinkedList{
     }
     unsigned int size(){
       return _size;
+    }
+
+    void print(){
+      auto p = head;
+      while(p){
+        cout << p->info << " ";
+        p = p->next;
+      }
+      cout << endl;
     }
 };
 

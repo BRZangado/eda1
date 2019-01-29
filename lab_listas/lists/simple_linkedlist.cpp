@@ -16,6 +16,14 @@ int main(){
   cout << "Primeiro elemento: " << list.front() << endl;
   cout << "Último elemento: " << list.back() << endl;
 
+  list.print();
+  list.size();
+  list.insert(4, 5);
+  list.print();
+  list.insert(4, 8);
+  list.print();
+  list.insert(4, 1000);
+
   list.~LinkedList();
 
   return 0;
