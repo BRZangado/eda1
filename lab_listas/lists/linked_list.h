@@ -68,6 +68,37 @@ class LinkedList{
       }
       _size--;
     }
+    void erase(int position){
+      if(position == 0){
+        pop_front();
+      }
+      else if(position == _size-1){
+        pop_back();
+      }
+      else if(position >= _size){
+        cout << "posicao nao existente" << endl;
+      } else {
+        int i = 0;
+        auto p = head;
+        while(p){
+          if(i == position){
+            auto prev = head;
+            while(prev->next != p){
+              prev = prev->next;
+            }
+            prev->next = p->next;
+            delete p;
+            break;
+          }
+          else{
+            p = p->next;
+            i++;
+            continue;
+          }
+        }
+        _size--;
+      }
+    }
     void insert(T info, int position){
       if(position == 0){
         push_front(info);

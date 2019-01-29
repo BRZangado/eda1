@@ -23,6 +23,8 @@ int main(){
   list.insert(4, 8);
   list.print();
   list.insert(4, 1000);
+  list.erase(5);
+  list.print();
 
   list.~LinkedList();
 
