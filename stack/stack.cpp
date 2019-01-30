@@ -21,7 +21,7 @@ class Stack{
       top = nullptr;
       _size = 0;
     }
-    void empilhar(T i){
+    void push(T i){
       if(_size == 0){
         auto n = new Node(i, nullptr);
         top = n;
@@ -32,7 +32,7 @@ class Stack{
       }
       _size++;
     }
-    void desempilhar(){
+    void pop(){
       if(_size == 0){
         throw "Empty Stack!!!";
       }
@@ -54,7 +54,7 @@ class Stack{
       return _size;
     }
     T _top(){
-      return top->info;
+      cout << top->info << endl;
     }
 };
 
@@ -62,13 +62,17 @@ int main(){
 
   Stack<int> stack;
   stack.print();
-  stack.empilhar(1);
-  stack.empilhar(2);
-  stack.empilhar(3);
+  stack.push(1);
+  stack.push(2);
+  stack.push(3);
   stack.print();
   cout << endl;
   cout << endl;
-  stack.desempilhar();
+  stack.pop();
   stack.print();
+  cout << endl;
+  cout << endl;
+  stack._top();
 
+  return 0;
 }
