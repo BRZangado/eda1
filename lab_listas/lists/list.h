@@ -1,126 +1,107 @@
 #ifndef LIST_H
 #define LIST_H
 
+#include <iostream>
+using namespace std;
+
 template<typename T>
 class List{
-
-private:
-  struct Node{
-    T info;
-    Node *next;
-
-    Node(const T& i, Node *n){
-      info = i;
-      next = n;
+  private:
+    struct Node{
+      T data;
+      Node * next;
+      Node(T info, Node * n){
+        data = info;
+        next = n;
+      }
+    };
+    Node * tail, *head;
+    unsigned int _size;
+  public:
+    List(){
+      tail = nullptr;
+      head = nullptr;
+      _size = 0;
     }
-  };
-
-  Node *head;
-  Node *tail;
-  unsigned long _size;
-
-public:
-  List(){
-    head = nullptr;
-    tail = nullptr;
-    _size = 0;
-  }
-  ~List(){
-    auto p = head;
-    while(p){
-      auto next = p->next;
-      delete p;
-      p = next;
+    ~List(){
+      auto p = head;
+      while(p){
+        auto n = p->next;
+        delete p;
+        p = n;
+      }
     }
-  }
-  void push_front(const T& info){
-    auto n = new Node(info, head);
-    if(head){
-      tail = tail;
+    void push_front(T data){
+      auto node = new Node(data, head);
+      if(!head){
+        tail = node;
+      }
+      head = node;
+      _size++;
     }
-    else{
-      tail = n;
+    void push_back(T data){
+      auto node = new Node(data, nullptr);
+      if(tail){
+        tail->next = node;
+      }
+      else{
+        head = node;
+      }
+      tail = node;
+      _size++;
     }
-    head = n;
-    _size++;
-  }
-  void push_back(const T& info){
-    auto n = new Node(info, nullptr);
-    if(tail){
-      tail->next = n;
+    void pop_back(){
+      if(_size == 0){
+        throw "empty list";
+      }
+      else if(_size == 1){
+        delete tail;
+        tail = nullptr;
+        head = nullptr;
+      }
+      else{
+        auto p = head;
+        while(p->next and p->next != tail){
+          p = p->next;
+        }
+        p->next = nullptr;
+        delete tail;
+        tail = p;
+        _size--;
+      }
     }
-    else{
-      head = n;
-    }
-    tail = n;
-    _size++;
-  }
-  void pop_front(){
-    if(!head){
-      throw "Empty List!!";
-    }
-    else{
-      auto temp = head;
+    void pop_front(){
+      auto p = head;
       head = head->next;
-      delete temp;
+      delete p;
+      if(!head){
+        tail = nullptr;
+      }
+      _size--;
+    }
+    T front(){
       if(head){
-        tail = tail;
+        return head->data;
       }
-      else{
-        tail = nullptr;
+      throw "Empty List";
+    }
+    T back(){
+      if(tail){
+        return tail->data;
       }
-      _size--;
+      throw "Empty List";
     }
-  }
-  void pop_back(){
-    if(!head){
-      throw "Empty List!!";
+    unsigned int size(){
+      return _size;
     }
-    else{
-      auto prev = head;
-      while(prev->next and prev->next != tail){
-        prev = prev->next;
+    void print(){
+      auto p = head;
+      while(p){
+        cout << p->data << " ";
+        p = p->next;
       }
-      delete tail;
-      if(tail == head){
-        head = tail;
-        tail = nullptr;
-      }
-      else{
-        tail = prev;
-        tail->next = nullptr;
-      }
-      _size--;
+      cout << endl;
     }
-  }
-  const T& front() const{
-    if(head){
-      return head->info;
-    }
-    else{
-      throw "Empty List!!";
-    }
-  }
-  const T& back() const{
-    if(tail){
-      return tail->info;
-    }
-    else{
-      throw "Empty List!!";
-    }
-  }
-
-  bool empty() const{
-    if(head){
-      return false;
-    }
-    return true;
-  }
-
-  unsigned long size() const{
-    return _size;
-  }
-
 };
 
 #endif
