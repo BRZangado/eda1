@@ -57,9 +57,13 @@ public:
           throw "Empty list!";
     }
 
-    T back2(){
-      if (head)
-          return head->next->info;
+    Node * first(){
+      if (head){
+        if(head->info.num%2==0){
+          return head->prev;
+        }
+        return head->next;
+      }
       else
           throw "Empty list!";
     }
@@ -101,13 +105,12 @@ public:
         head = head->next;
       } else {
         head = nullptr;
+        tail = nullptr;
       }
       delete temp;
       if(head){
         head->prev = tail;
         tail->next = head;
-      } else {
-        tail = nullptr;
       }
       _size--;
     }
@@ -187,6 +190,42 @@ public:
       cout << endl;
     }
 
+    Person game2(Node * n, int passos){
+      if(_size==1){
+        cout << "lalala" << endl;
+        cout << n->info.nome << endl;
+        return n->info;
+      }
+      auto p = n;
+      int i = 1;
+      if(passos%2==0){
+        while(i != passos){
+          p=p->prev;
+          i++;
+        }
+      } else {
+        while(i != passos){
+          p=p->next;
+          i++;
+        }
+      }
+      p->prev->next = p->next;
+      p->next->prev = p->prev;
+      passos = p->info.num;
+      auto prox = p;
+      if(passos%2==0){
+        prox=prox->prev;
+      } else {
+        prox=prox->next;
+      }
+      cout << _size << endl;
+      cout << p->info.nome << endl;
+      cout << prox->info.nome << endl;
+      delete p;
+      _size--;
+      game2(prox, passos);
+    }
+
     Person game(bool start, Person parou, int passos){
       if(_size == 1){
         return head->info;
@@ -208,16 +247,21 @@ public:
         }
         i++;
       }
-      auto temp = k->next;
       int proximos_passos = k->info.num;
+      auto temp = k;
+      if(proximos_passos%2==0){
+        temp = k->prev;
+      } else {
+        temp = k->next;
+      }
       k->prev = k->next;
       k->next->prev = k->prev;
       delete k;
+      _size--;
       if(_size == 1){
         head = temp;
         tail = temp;
       }
-      _size--;
       return game(false, temp->info, proximos_passos);
     }
 };
@@ -241,11 +285,29 @@ int main(){
       p.num = num;
       lista.push_back(p);
     }
-    bool start = true;
-    Person p = lista.back2();
-    int passos = 0;
-    Person vencedor = lista.game(true, p, 0);
+    Person head =  lista.front();
+    Person vencedor = lista.game2(lista.first(), head.num);
     cout << vencedor.nome << endl;
+    /*
+    
+    3
+    Fa 7
+    Fo 9
+    G 11
+    3
+    Fo
+    G
+    2
+    G
+    Fa
+    lalala
+    Fa
+    free(): invalid pointer
+    Abortado (imagem do núcleo gravada)
+
+    
+    */
+
   }
   
 
