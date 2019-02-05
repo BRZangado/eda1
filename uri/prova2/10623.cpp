@@ -12,14 +12,14 @@ int main(){
       break;
     }
     int i;
-    stack<int> trem;
-    stack<int> aux;
-    stack<int> saida;
-    for(i=N;i>0;i--){
-      trem.push(i);
-    }
     bool continuar = true;
     while(continuar){
+      stack<int> trem;
+      stack<int> aux;
+      stack<int> saida;
+      for(i=N;i>0;i--){
+        trem.push(i);
+      }
       vector<int> combinacao;
       int j;
       for(j = 0; j<N; j++){
@@ -34,7 +34,6 @@ int main(){
       if(!continuar){
         break;
       }
-      bool deu = true;
       for(i = 0; i<N; i++){
         while(!trem.empty() and combinacao[i] > trem.top()) {
           aux.push(trem.top());
@@ -44,21 +43,21 @@ int main(){
           saida.push(trem.top());
           trem.pop();
         }
-        if(!aux.empty() and combinacao[i] == aux.top()){
+        else if(!aux.empty() and combinacao[i] == aux.top()){
           saida.push(aux.top());
           aux.pop();
         }
-        if(!aux.empty() and combinacao[i] < aux.top()){
-          deu = false;
+        else if(!aux.empty() and combinacao[i] < aux.top()){
           break;
         }
       }
-      if(deu){
+      if(saida.size() == N){
         cout << "Yes" << endl;
       } else {
         cout << "No" << endl;
       }
     }
+    cout << endl;
   }
   return 0;
 }
